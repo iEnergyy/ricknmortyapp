@@ -79,9 +79,40 @@ class _HomePageState extends State<HomePage> {
               ),
               title: Text(character.name),
               subtitle: Text(character.species),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => DetailPage(
+                              characterDetails: character,
+                            ))));
+              },
             ),
           );
         },
       );
 }
-//TODO: create detail page and the navigation there
+
+//TODO: Create a cool UI for the detail page.
+class DetailPage extends StatelessWidget {
+  const DetailPage({Key? key, required this.characterDetails})
+      : super(key: key);
+
+  final Character characterDetails;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(characterDetails.name),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}

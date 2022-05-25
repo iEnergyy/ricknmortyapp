@@ -51,12 +51,8 @@ class Character {
     data['species'] = species;
     data['type'] = type;
     data['gender'] = gender;
-    if (origin != null) {
-      data['origin'] = origin!.toJson();
-    }
-    if (location != null) {
-      data['location'] = location!.toJson();
-    }
+    data['origin'] = origin.toJson();
+    data['location'] = location.toJson();
     data['image'] = image;
     data['episode'] = episode;
     data['url'] = url;
