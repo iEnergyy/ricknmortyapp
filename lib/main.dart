@@ -147,30 +147,8 @@ class DetailPage extends StatelessWidget {
         Text(characterDetails.gender),
         Text(characterDetails.origin.name),
         Text(characterDetails.episode.first),
+        Text('still working on this part to put a list of episodes'),
       ]),
     );
   }
 }
-// class DetailPage extends StatelessWidget {
-//   const DetailPage({Key? key, required this.characterDetails})
-//       : super(key: key);
-
-//   final Character characterDetails;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text(characterDetails.name),
-//         ),
-//         body: ListView(
-//           children: <Widget>[
-//             Image.network(characterDetails.image),
-//             Text('Name: ${characterDetails.name}'),
-//             Text('Gender: ${characterDetails.gender}'),
-//             Text(
-//                 'Status: ${characterDetails.status} - ${characterDetails.species}'),
-//             Text('Origin name: ${characterDetails.origin.name}'),
-//           ],
-//         ));
-//   }
-// }
