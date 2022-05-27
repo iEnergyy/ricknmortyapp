@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'models/character.dart';
 import 'services/characterService.dart';
@@ -94,25 +95,79 @@ class _HomePageState extends State<HomePage> {
 }
 
 //TODO: Create a cool UI for the detail page.
+//TODO: Refactor.
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key, required this.characterDetails})
       : super(key: key);
 
   final Character characterDetails;
+  Color getStatusColor() {
+    switch (characterDetails.status) {
+      case 'Alive':
+        return Colors.green;
+      case 'Dead':
+        return Colors.red;
+      default:
+        return Colors.yellow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(characterDetails.name),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
+        title: const Text(
+          'Character Details',
+          textAlign: TextAlign.center,
         ),
       ),
+      body: ListView(children: [
+        Image.network(characterDetails.image,
+            width: double.infinity, height: 300, fit: BoxFit.cover),
+        Text(characterDetails.name,
+            textAlign: TextAlign.left,
+            style:
+                GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.w700)),
+        Row(
+          children: [
+            Container(
+              height: 15,
+              width: 15,
+              margin: const EdgeInsets.only(right: 4),
+              decoration: BoxDecoration(
+                  color: getStatusColor(),
+                  borderRadius: BorderRadius.circular(100)),
+            ),
+            Text('${characterDetails.status} - ${characterDetails.species}',
+                textAlign: TextAlign.left,
+                style: GoogleFonts.roboto(
+                    fontSize: 15, fontWeight: FontWeight.w400)),
+          ],
+        ),
+      ]),
     );
   }
 }
+// class DetailPage extends StatelessWidget {
+//   const DetailPage({Key? key, required this.characterDetails})
+//       : super(key: key);
+
+//   final Character characterDetails;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text(characterDetails.name),
+//         ),
+//         body: ListView(
+//           children: <Widget>[
+//             Image.network(characterDetails.image),
+//             Text('Name: ${characterDetails.name}'),
+//             Text('Gender: ${characterDetails.gender}'),
+//             Text(
+//                 'Status: ${characterDetails.status} - ${characterDetails.species}'),
+//             Text('Origin name: ${characterDetails.origin.name}'),
+//           ],
+//         ));
+//   }
+// }
