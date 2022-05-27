@@ -144,6 +144,9 @@ class DetailPage extends StatelessWidget {
                     fontSize: 15, fontWeight: FontWeight.w400)),
           ],
         ),
+        Text(characterDetails.gender),
+        Text(characterDetails.origin.name),
+        Text(characterDetails.episode.first),
       ]),
     );
   }
