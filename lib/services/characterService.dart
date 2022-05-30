@@ -26,3 +26,14 @@ Future<List<Character>> getCharacters() async {
     throw Exception('Failed to load characters');
   }
 }
+
+Future<Character> getCharacter(int id) async {
+  final response = await http.get(
+      Uri.parse('https://rickandmortyapi.com/api/character/${id.toString()}'));
+  if (response.statusCode == 200) {
+    var jsonResponse = json.decode(response.body)['results'];
+    return jsonResponse.map((data) => Character.fromJson(data));
+  } else {
+    throw Exception('Failed to load character');
+  }
+}

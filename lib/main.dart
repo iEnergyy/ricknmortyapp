@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rick_n_morty/models/episode.dart';
+import 'package:rick_n_morty/services/episodeService.dart';
 
 import 'models/character.dart';
 import 'services/characterService.dart';
@@ -96,13 +98,26 @@ class _HomePageState extends State<HomePage> {
 
 //TODO: Create a cool UI for the detail page.
 //TODO: Refactor.
-class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key, required this.characterDetails})
-      : super(key: key);
+class DetailPage extends StatefulWidget {
+  DetailPage({Key? key, required this.characterDetails}) : super(key: key);
 
   final Character characterDetails;
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  Future<List<Episode>>? episodesFuture;
+
+  @override
+  void initState() {
+    episodesFuture = getEpisodesWithURL(widget.characterDetails.episode);
+    super.initState();
+  }
+
   Color getStatusColor() {
-    switch (characterDetails.status) {
+    switch (widget.characterDetails.status) {
       case 'Alive':
         return Colors.green;
       case 'Dead':
@@ -122,9 +137,9 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       body: ListView(children: [
-        Image.network(characterDetails.image,
+        Image.network(widget.characterDetails.image,
             width: double.infinity, height: 300, fit: BoxFit.cover),
-        Text(characterDetails.name,
+        Text(widget.characterDetails.name,
             textAlign: TextAlign.left,
             style:
                 GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.w700)),
@@ -138,17 +153,50 @@ class DetailPage extends StatelessWidget {
                   color: getStatusColor(),
                   borderRadius: BorderRadius.circular(100)),
             ),
-            Text('${characterDetails.status} - ${characterDetails.species}',
+            Text(
+                '${widget.characterDetails.status} - ${widget.characterDetails.species}',
                 textAlign: TextAlign.left,
                 style: GoogleFonts.roboto(
                     fontSize: 15, fontWeight: FontWeight.w400)),
           ],
         ),
-        Text(characterDetails.gender),
-        Text(characterDetails.origin.name),
-        Text(characterDetails.episode.first),
-        Text('still working on this part to put a list of episodes'),
+        Text(widget.characterDetails.gender),
+        Text(widget.characterDetails.origin.name),
+        // Text('still working on this part to put a list of episodes'),
+        // Text(characterDetails.episode.first),
+        Container(
+          child: FutureBuilder<List<Episode>>(
+              future: episodesFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text(':( ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  final episodes = snapshot.data!;
+
+                  //need to build that part of the app so i can show the episodes.
+                  return buildEpisodes(episodes);
+                } else {
+                  return const Text('No characters :(');
+                }
+              }),
+        )
       ]),
     );
   }
+
+  Widget buildEpisodes(List<Episode> episodes) => ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: episodes.length,
+      itemBuilder: (context, index) {
+        final episode = episodes[index];
+
+        return Card(
+          child: ListTile(
+            title: Text(episode.name),
+          ),
+        );
+      });
 }
