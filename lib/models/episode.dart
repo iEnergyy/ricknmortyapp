@@ -18,24 +18,24 @@ class Episode {
     required this.created,
   });
 
-  // Episode.fromJson(Map<String, dynamic> json) {
-  //   id = json['id'];
-  //   name = json['name'];
-  //   air_date = json['air_date'];
-  //   episode = json['episode'];
-  //   characters = json['characters'].cast<String>();
-  //   url = json['url'];
-  //   created = json['created'];
-  // }
-  factory Episode.fromJson(Map<String, dynamic> json) {
-    return Episode(
-        id: json['id'],
-        name: json['name'],
-        air_date: json['air_date'],
-        characters: json['characters'].cast<String>(),
-        url: json['url'],
-        created: json['created']);
+  Episode.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    air_date = json['air_date'];
+    episode = json['episode'];
+    characters = json['characters'].cast<String>();
+    url = json['url'];
+    created = json['created'];
   }
+  // factory Episode.fromJson(Map<String, dynamic> json) {
+  //   return Episode(
+  //       id: json['id'],
+  //       name: json['name'],
+  //       air_date: json['air_date'],
+  //       characters: json['characters'].cast<String>(),
+  //       url: json['url'],
+  //       created: json['created']);
+  // }
 
   Map<String, dynamic> toJson(episode) {
     final Map<String, dynamic> data = <String, dynamic>{};
