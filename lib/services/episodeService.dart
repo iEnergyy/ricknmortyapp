@@ -4,14 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:rick_n_morty/models/episode.dart';
 
 Future<List<Episode>> getEpisodesWithURL(List<String> episodeUrls) async {
-  List<String> EpisodeIds = [];
-  episodeUrls.forEach((url) {
-    EpisodeIds.add(url.substring(url.lastIndexOf('/')).split('/').last);
-  });
+  List<String> wpisodeIds = [];
+  for (var url in episodeUrls) {
+    wpisodeIds.add(url.substring(url.lastIndexOf('/')).split('/').last);
+  }
 
-  String Ids = EpisodeIds.join(',');
+  String ids = wpisodeIds.join(',');
   final episodesResponse = await http
-      .get(Uri.parse('https://rickandmortyapi.com/api/episode/${Ids}'));
+      .get(Uri.parse('https://rickandmortyapi.com/api/episode/${ids}'));
 
   if (episodesResponse.statusCode == 200) {
     late List<Episode> episodes = [];
