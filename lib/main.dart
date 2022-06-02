@@ -139,49 +139,51 @@ class _DetailPageState extends State<DetailPage> {
       body: ListView(children: [
         Image.network(widget.characterDetails.image,
             width: double.infinity, height: 300, fit: BoxFit.cover),
-        Text(widget.characterDetails.name,
+        ListTile(
+          title: Text(
+            widget.characterDetails.name,
             textAlign: TextAlign.left,
-            style:
-                GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.w700)),
-        Row(
-          children: [
-            Container(
+            style:GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.w700))),
+        ListTile(
+          leading: Container(
               height: 15,
               width: 15,
-              margin: const EdgeInsets.only(right: 4),
               decoration: BoxDecoration(
                   color: getStatusColor(),
                   borderRadius: BorderRadius.circular(100)),
             ),
-            Text(
-                '${widget.characterDetails.status} - ${widget.characterDetails.species}',
-                textAlign: TextAlign.left,
-                style: GoogleFonts.roboto(
-                    fontSize: 15, fontWeight: FontWeight.w400)),
-          ],
+          title: Text(
+                '${widget.characterDetails.status} - ${widget.characterDetails.species}'),
+          horizontalTitleGap: 0,
         ),
-        Text(widget.characterDetails.gender),
-        Text(widget.characterDetails.origin.name),
-        // Text('still working on this part to put a list of episodes'),
-        // Text(characterDetails.episode.first),
-        Container(
-          child: FutureBuilder<List<Episode>>(
-              future: episodesFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text(':( ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  final episodes = snapshot.data!;
+        ListTile(
+          // do a condition here for the type if applies
+          title: Text('${widget.characterDetails.gender}'),
+        ),
+        ListTile(
+          title: Text(widget.characterDetails.origin.name),
+        ),
+        ExpansionTile(
+          title: const Text('Episodes'),
+          children: [
+            FutureBuilder<List<Episode>>(
+                future: episodesFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text(':( ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final episodes = snapshot.data!;
 
-                  //need to build that part of the app so i can show the episodes.
-                  return buildEpisodes(episodes);
-                } else {
-                  return const Text('No characters :(');
-                }
-              }),
-        )
+                    return buildEpisodes(episodes);
+                  } else {
+                    return const Text('No characters :(');
+                  }
+                })
+          ],
+          ),
+        
       ]),
     );
   }
@@ -196,7 +198,9 @@ class _DetailPageState extends State<DetailPage> {
         return Card(
           child: ListTile(
             title: Text(episode.name),
+            subtitle: Text('${episode.episode} - ${episode.air_date}'),
           ),
         );
       });
 }
+
