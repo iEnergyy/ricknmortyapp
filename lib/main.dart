@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
       );
 }
 
-//TODO: Create a cool UI for the detail page.
 //TODO: Refactor.
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key, required this.characterDetails}) : super(key: key);
@@ -157,8 +156,9 @@ class _DetailPageState extends State<DetailPage> {
           horizontalTitleGap: 0,
         ),
         ListTile(
-          // do a condition here for the type if applies
-          title: Text('${widget.characterDetails.gender}'),
+          title: widget.characterDetails.type == ''
+                  ? Text(widget.characterDetails.gender)
+                  : Text('${widget.characterDetails.gender} - ${widget.characterDetails.type}')
         ),
         ListTile(
           title: Text(widget.characterDetails.origin.name),
