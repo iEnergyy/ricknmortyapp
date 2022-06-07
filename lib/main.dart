@@ -54,18 +54,34 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Text('Drawer Header'),
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/ricknmortyheader.jpg'),
+                    ),
+                  color: Colors.blue
+                  ),
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  child: const Text('Rick and Morty by Maiguel'),
+                  ),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              leading: const Icon(Icons.accessibility),
+              title: const Text('Characters'),
               onTap: (){},
             ),
             ListTile(
-              title: const Text('Item 2'),
+              leading: const Icon(Icons.ondemand_video),
+              title: const Text('Episodes'),
               onTap: (){},
-            )
+            ),
+            ListTile(
+              leading: const Icon(Icons.location_on),
+              title: const Text('Locations'),
+              onTap: () {},
+            ),
             ],
           ),
         ),
