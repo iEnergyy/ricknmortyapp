@@ -1,12 +1,22 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
-class EpisodesLandingPage extends StatelessWidget {
+import '../widgets/drawerNav.dart';
+
+class EpisodesLandingPage extends StatefulWidget {
   const EpisodesLandingPage({Key? key}) : super(key: key);
 
   @override
+  State<EpisodesLandingPage> createState() => _EpisodesLandingPageState();
+}
+
+class _EpisodesLandingPageState extends State<EpisodesLandingPage> {
+  @override
   Widget build(BuildContext context) {
-    return Text('hehe');
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text('Episodes'),
+        ),
+      drawer: const DrawerNav(),
+    );
   }
 }
