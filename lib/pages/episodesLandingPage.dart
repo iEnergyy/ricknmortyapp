@@ -61,7 +61,9 @@ Future<List<Episode>>? episodesFuture;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => const EpisodeDetailPage())));
+                        builder: ((context) => EpisodeDetailPage(
+                          episodeDetails: episode,
+                        ))));
               },
             ),
           );

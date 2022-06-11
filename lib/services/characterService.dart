@@ -37,3 +37,29 @@ Future<Character> getCharacter(int id) async {
     throw Exception('Failed to load character');
   }
 }
+
+Future<List<Character>> getCharactersWithURL(List<String> characterUrls) async {
+  List<String> characterIds = [];
+  for (var url in characterUrls) {
+    characterIds.add(url.substring(url.lastIndexOf('/')).split('/').last);
+  }
+
+  String ids = characterIds.join(',');
+  final charactersResponse = await http
+      .get(Uri.parse('https://rickandmortyapi.com/api/character/${ids}'));
+
+  if (charactersResponse.statusCode == 200) {
+    late List<Character> characters = [];
+    if (characterUrls.length == 1) {
+      Map<String, dynamic> jsonResponse = jsonDecode(charactersResponse.body);
+      final character = jsonResponse;
+      characters.add(Character.fromJson(character));
+    } else {
+      List jsonResponse = jsonDecode(charactersResponse.body);
+      characters = jsonResponse.map((x) => Character.fromJson(x)).toList();
+    }
+    return characters;
+  } else {
+    throw Exception('Failed to load characters');
+  }
+}

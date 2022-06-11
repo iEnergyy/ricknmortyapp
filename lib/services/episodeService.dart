@@ -30,7 +30,6 @@ Future<List<Episode>> getEpisodesWithURL(List<String> episodeUrls) async {
 }
 
 Future<List<Episode>> getAllEpisodes() async {
-  // final episodesResponse = await http.get(Uri.parse('https://rickandmortyapi.com/api/episode'));
   List<Episode> AllEpisodes = [];
   final getPages =
       await http.get(Uri.parse('https://rickandmortyapi.com/api/episode'));
@@ -51,5 +50,16 @@ Future<List<Episode>> getAllEpisodes() async {
     return AllEpisodes;
   } else {
     throw Exception('Failed to load episodes');
+  }
+}
+
+Future<Episode> getEpisode(int id) async {
+  final response = await http.get(
+      Uri.parse('https://rickandmortyapi.com/api/episode/${id.toString()}'));
+  if (response.statusCode == 200) {
+    var jsonResponse = json.decode(response.body)['results'];
+    return jsonResponse.map((data) => Episode.fromJson(data));
+  } else {
+    throw Exception('Failed to load episode');
   }
 }
