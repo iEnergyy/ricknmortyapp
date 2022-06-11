@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:rick_n_morty/models/character.dart';
 import 'package:rick_n_morty/models/episode.dart';
 import 'package:rick_n_morty/services/characterService.dart';
@@ -42,7 +43,8 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
             title: Text('Episode: ${widget.episodeDetails.episode}'),
           ),
           ListTile(
-            title: Text('Created: ${widget.episodeDetails.created}'),
+            // title: Text('Created: ${widget.episodeDetails.created}'),
+            title: Text('Created: ${Jiffy(widget.episodeDetails.created).yMMMMEEEEdjm}'),
           ),
           ExpansionTile(
           title: const Text('Characters'),
@@ -78,23 +80,32 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
       return Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        child: Stack(
-          children: [
-            Ink.image(
-              image: NetworkImage(characters[index].image),
-              height: double.infinity,
-              fit: BoxFit.cover,
-              ),
-              Positioned(
-                bottom: 16,
-                right: 16,
-                left: 16,
-                child: Text(
-                  characters[index].name,
-                  style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700)),
-                )
-          ],
-        ),
+        child: 
+        // Column(
+        //   children: [
+            Stack(
+              children: [
+                Ink.image(
+                  image: NetworkImage(characters[index].image),
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    left: 16,
+                    child: Text(
+                      characters[index].name,
+                      style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.grey[800], shadows: [Shadow(color: Colors.grey, blurRadius: 1.5)])),
+                    ),
+              ],
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(16).copyWith(bottom: 0), 
+            //   child: Text(characters[index].name)
+            // ),
+          // ],
+        // ),
       );
     })
     );
