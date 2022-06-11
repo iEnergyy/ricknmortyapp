@@ -20,6 +20,7 @@ class _DrawerNavState extends State<DrawerNav> {
         children: [
           Expanded(
             child: ListView(
+              controller: ScrollController(),
                   padding: EdgeInsets.zero,
                   children: [
                     DrawerHeader(
