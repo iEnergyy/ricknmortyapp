@@ -57,7 +57,7 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
                   } else if (snapshot.hasData) {
                     final characters = snapshot.data!;
 
-                    return buildCharacters(characters);
+                    return builcCharactersGrid(characters);
                   } else {
                     return const Text('No characters :(');
                   }
@@ -69,18 +69,33 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
     );
   }
 
-  Widget buildCharacters(List<Character> characters) => ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: characters.length,
-      itemBuilder: (context, index) {
-        final character = characters[index];
-
-        return Card(
-          child: ListTile(
-            title: Text(character.name),
-            subtitle: Text('${character.gender} - ${character.id}'),
-          ),
-        );
-      });
+  Widget builcCharactersGrid(List<Character> characters) => GridView.count(
+    crossAxisCount: 2,
+    crossAxisSpacing: 10,
+    mainAxisSpacing: 10,
+    shrinkWrap: true,
+    children: List.generate(characters.length, (index) {
+      return Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: Stack(
+          children: [
+            Ink.image(
+              image: NetworkImage(characters[index].image),
+              height: double.infinity,
+              fit: BoxFit.cover,
+              ),
+              Positioned(
+                bottom: 16,
+                right: 16,
+                left: 16,
+                child: Text(
+                  characters[index].name,
+                  style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700)),
+                )
+          ],
+        ),
+      );
+    })
+    );
 }
