@@ -22,7 +22,7 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
     charactersFuture = getCharactersWithURL(widget.episodeDetails.characters);
     super.initState();
   }
-
+  //TODO: make this page responsive.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,6 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
             title: Text('Episode: ${widget.episodeDetails.episode}'),
           ),
           ListTile(
-            // title: Text('Created: ${widget.episodeDetails.created}'),
             title: Text('Created: ${Jiffy(widget.episodeDetails.created).yMMMMEEEEdjm}'),
           ),
           ExpansionTile(
@@ -81,31 +80,21 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: 
-        // Column(
-        //   children: [
-            Stack(
-              children: [
-                Ink.image(
-                  image: NetworkImage(characters[index].image),
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: Text(
-                      characters[index].name,
-                      style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.grey[800], shadows: [Shadow(color: Colors.grey, blurRadius: 1.5)])),
-                    ),
-              ],
+         Column(
+           children: [
+            Ink.image(
+              image: NetworkImage(characters[index].image),
+              height: 186,
+              fit: BoxFit.cover,
+              ),
+            Align(
+              alignment: const Alignment(-0.7, 1),
+               child: Text(
+               characters[index].name,
+               style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black))
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(16).copyWith(bottom: 0), 
-            //   child: Text(characters[index].name)
-            // ),
-          // ],
-        // ),
+           ],
+         ),
       );
     })
     );
