@@ -5,7 +5,6 @@ import 'package:rick_n_morty/models/character.dart';
 import 'package:rick_n_morty/models/episode.dart';
 import 'package:rick_n_morty/services/characterService.dart';
 
-import '../widgets/drawerNav.dart';
 
 class EpisodeDetailPage extends StatefulWidget {
   const EpisodeDetailPage({Key? key, required this.episodeDetails}) : super(key: key);
@@ -90,8 +89,9 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
             Align(
               alignment: const Alignment(-0.7, 1),
                child: Text(
-               characters[index].name,
-               style:GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black))
+               '${characters[index].name} - ${characters[index].species}',
+               overflow: TextOverflow.ellipsis,
+               style:GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black))
             ),
            ],
          ),
