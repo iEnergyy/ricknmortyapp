@@ -30,7 +30,7 @@ Future<List<Episode>>? episodesFuture;
         ),
         drawer: const DrawerNav(),
         body: Center(
-            child: FutureBuilder<List<Episode>>(
+          child: FutureBuilder<List<Episode>>(
           future: episodesFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
