@@ -57,7 +57,7 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
                   } else if (snapshot.hasData) {
                     final characters = snapshot.data!;
 
-                    return builcCharactersGrid(characters);
+                    return buildCharactersGrid(characters);
                   } else {
                     return const Text('No characters :(');
                   }
@@ -69,7 +69,7 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
     );
   }
 
-  Widget builcCharactersGrid(List<Character> characters) => GridView.count(
+  Widget buildCharactersGrid(List<Character> characters) => GridView.count(
     crossAxisCount: 2,
     crossAxisSpacing: 10,
     mainAxisSpacing: 10,

@@ -63,7 +63,8 @@ class _LocationsLandingPageState extends State<LocationsLandingPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => LocationDetailPage())));
+                        builder: ((context) => LocationDetailPage(
+                          locationDetails: location))));
               },
             ),
           );
